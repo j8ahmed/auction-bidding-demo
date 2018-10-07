@@ -1,7 +1,7 @@
 /*Make Connection to the web socket at the backend
 By making a socket for the frontend and connecting
 to the backend socket*/
-let socket = io.connect('http://localhost:4000');
+let socket = io.connect('http://localhost:3000');
 //Listen for events
 socket.on('bid', (data) => {
 

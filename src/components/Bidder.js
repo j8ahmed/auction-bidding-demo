@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css';
 
 
 class Bidder extends Component {
@@ -7,8 +6,6 @@ class Bidder extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        /*Make Connection to the web socket at the backend By making a socket for the frontend and connecting to the backend socket*/
-        this.socket = io.connect('http://localhost:4000');
         this.state = {
             customBid: 0
         }
@@ -19,7 +16,6 @@ class Bidder extends Component {
         });
     }
     handleClick(e){
-
         let id = this.props.id;
         let item = document.getElementById('item-name').innerHTML;
         let currentBid = document.getElementById('current-price').value;
@@ -27,7 +23,7 @@ class Bidder extends Component {
         let feedback = document.getElementById('feedback');
         
         //Check to ensure that the price is in fact a number
-        if(!bid.match(/^[0-9]+$/g)){
+        if(!bid.match(/^[0-9\.]+$/g)){
             feedback.innerHTML = '<p style="color: red">The bid must be a number with no symbols or spaces EX: 100000 .</p>';
             return;
         }else{
@@ -38,7 +34,7 @@ class Bidder extends Component {
          bid = Math.abs(Math.round(bid * 100) / 100); 
 
         //Check the bid to ensure that it is greater than the current bid
-        if(bid < currentBid){
+        if(bid <= currentBid){
             feedback.innerHTML = '<p style="color: red">You must place a bidder higher than $ <strong>'+ currentBid.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "," ) +'</strong></p>';
             return;
         }
@@ -47,8 +43,8 @@ class Bidder extends Component {
         this.props.updatePrice(bid);
 
         //Send the bid to the server to be shared in real time to the auction clerk and other bidders
-        this.socket.emit('bid', {
-            socketId: this.socket.id,
+        this.props.socket.emit('bid', {
+            socketId: this.props.socket.id,
             id: id,
             item: item,
             price: bid
