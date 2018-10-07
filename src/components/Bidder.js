@@ -25,7 +25,14 @@ class Bidder extends Component {
         let currentBid = document.getElementById('current-price').value;
         let bid = e.target.value;
         let feedback = document.getElementById('feedback');
-
+        
+        //Check to ensure that the price is in fact a number
+        if(!bid.match(/^[0-9]+$/g)){
+            feedback.innerHTML = '<p style="color: red">The bid must be a number with no symbols or spaces EX: 100000 .</p>';
+            return;
+        }else{
+            feedback.innerHTML = '';
+        }
         //Check the bid to ensure that it is not a negative value
         bid < 0 ? bid = 0 :
          bid = Math.abs(Math.round(bid * 100) / 100); 
