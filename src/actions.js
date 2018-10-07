@@ -1,14 +1,27 @@
 
-const PAGECONTENT = 'PAGECONTENT';
-
-
+const LOGIN = 'LOGIN';
+const AUCTIONITEMPRICE = 'AUCTIONITEMPRICE';
+const AUCTIONITEMNAME = 'AUCTIONITEMNAME';
 let actions = {
-    updatePageContent: (page) => {
+    login: (loginRole, loginId) => {
         return {
-            type: PAGECONTENT,
-            pageContent: page
+            type: LOGIN,
+            loginRole: loginRole,
+            loginId: loginId
         }
     },
+    updateAuctionItemName: (name) => {
+        return {
+            type: AUCTIONITEMNAME,
+            auctionItemName: name
+        }
+    },
+    updateAuctionItemPrice: (price) => {
+        return {
+            type: AUCTIONITEMPRICE,
+            auctionItemPrice: price
+        }
+    }
 };
 
 export default actions;
