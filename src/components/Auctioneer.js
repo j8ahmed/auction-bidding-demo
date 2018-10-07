@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css';
 
 
 class Auctioneer extends Component {
@@ -7,8 +6,6 @@ class Auctioneer extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        /*Make Connection to the web socket at the backend By making a socket for the frontend and connecting to the backend socket*/
-        this.socket = io.connect('http://localhost:4000');
         this.state = {
             price: 0
         }
@@ -24,7 +21,7 @@ class Auctioneer extends Component {
         let price = this.state.price;
         let feedback = document.getElementById('feedback');
         //Check to ensure that the price is in fact a number
-        if(!price.match(/^[0-9]+$/g)){
+        if(!price.match(/^[0-9\.]+$/g)){
             feedback.innerHTML = '<p style="color: red">The price must be a number with no symbols or spaces EX: 100000 .</p>';
             return;
         }else{
@@ -39,7 +36,7 @@ class Auctioneer extends Component {
         this.props.updatePrice(price);
 
         //Send the starting bid to the server to be shared in real time to the other bidders
-        this.socket.emit('auctionStart', {
+        this.props.socket.emit('auctionStart', {
             id: id,
             item: item,
             price: price

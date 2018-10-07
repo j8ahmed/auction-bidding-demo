@@ -1,19 +1,23 @@
-let express = require('express');
-let socket = require('socket.io');
+const express = require('express');
+const socket = require('socket.io');
 
-//App setup
+//App Setup
+const app = express();
+const port = process.env.PORT || 3000;
 
-let app = express();
+
+// app.get('/', (req, res) => res.send('Hello World!'))
+// app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 
 //create a server
 
-let server = app.listen(4000, () => {
-    console.log("listening to requests on port");
+let server = app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`);
 });
 
 //Static Files
-app.use(express.static('../'));
+app.use(express.static( __dirname ));
 
 
 //Socket setup
