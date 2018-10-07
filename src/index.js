@@ -5,19 +5,27 @@ import actions from './actions';
 import store from './store';
 import App from './components/App';
 
-
 //react-redux
 const mapStateToProps = (state) => {
   return {
-		title: state.title,
-		pageContent: state.pageContent
+		role: state.loginRole,
+		id: state.loginId,
+		auctionItem: state.auctionItem,
+		auctionItemPrice: state.auctionItemPrice
   }
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    updatePageContent: (page) =>{
-			dispatch(actions.updatePageContent(page));
+    login: (role, id) =>{
+			dispatch(actions.login(role, id));
+		},
+		updateAuctionItemName: (name) => {
+			dispatch(actions.updateAuctionItemName(name))
+		},
+		updateAuctionItemPrice: (price) => {
+			dispatch(actions.updateAuctionItemPrice(price))
 		}
+
   }
 };
 const Container = connect(mapStateToProps, mapDispatchToProps)(App);
@@ -32,3 +40,4 @@ const AppContainer = () => {
 
 ReactDOM.render(
 	<AppContainer/>, document.getElementById('root'));
+

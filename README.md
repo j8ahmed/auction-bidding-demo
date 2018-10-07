@@ -1,0 +1,2 @@
+# Auction bidding demonstration site
+
